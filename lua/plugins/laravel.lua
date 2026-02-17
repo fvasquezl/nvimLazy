@@ -302,6 +302,116 @@ test('{}', function () {{
             }
           )
         ),
+
+        -- Eloquent Query Builder
+        s(
+          "where",
+          fmt("->where('{}', {})", {
+            i(1, "column"),
+            i(2, "$value"),
+          })
+        ),
+        s(
+          "orWhere",
+          fmt("->orWhere('{}', {})", {
+            i(1, "column"),
+            i(2, "$value"),
+          })
+        ),
+        s(
+          "whereIn",
+          fmt("->whereIn('{}', [{}])", {
+            i(1, "column"),
+            i(2, ""),
+          })
+        ),
+        s(
+          "whereNotNull",
+          fmt("->whereNotNull('{}')", {
+            i(1, "column"),
+          })
+        ),
+        s(
+          "whereNull",
+          fmt("->whereNull('{}')", {
+            i(1, "column"),
+          })
+        ),
+        s(
+          "whereBetween",
+          fmt("->whereBetween('{}', [{}, {}])", {
+            i(1, "column"),
+            i(2, "$start"),
+            i(3, "$end"),
+          })
+        ),
+        s(
+          "whereHas",
+          fmt(
+            [[
+->whereHas('{}', function ($query) {{
+    $query->{};
+}})
+]],
+            {
+              i(1, "relation"),
+              i(2, "where('column', $value)"),
+            }
+          )
+        ),
+        s(
+          "orderBy",
+          fmt("->orderBy('{}', '{}')", {
+            i(1, "column"),
+            i(2, "asc"),
+          })
+        ),
+        s(
+          "latest",
+          fmt("->latest('{}')", {
+            i(1, "created_at"),
+          })
+        ),
+        s(
+          "groupBy",
+          fmt("->groupBy('{}')", {
+            i(1, "column"),
+          })
+        ),
+        s(
+          "with",
+          fmt("->with('{}')", {
+            i(1, "relation"),
+          })
+        ),
+        s(
+          "withCount",
+          fmt("->withCount('{}')", {
+            i(1, "relation"),
+          })
+        ),
+        s(
+          "paginate",
+          fmt("->paginate({})", {
+            i(1, "15"),
+          })
+        ),
+        s(
+          "scope",
+          fmt(
+            [[
+public function scope{}(Builder $query{}): Builder
+{{
+    return $query->{};
+}}
+]],
+            {
+              i(1, "Active"),
+              i(2, ""),
+              i(3, "where('active', true)"),
+            }
+          )
+        ),
       })
     end,
   },
