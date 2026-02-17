@@ -92,10 +92,27 @@ return {
       local i = ls.insert_node
 
       ls.add_snippets("blade", {
-        -- Livewire directives
+        -- Livewire 4 directives
         s("wire:model", {
           t('wire:model="'),
           i(1, "property"),
+          t('"'),
+        }),
+        s("wire:model.live", {
+          t('wire:model.live="'),
+          i(1, "property"),
+          t('"'),
+        }),
+        s("wire:model.blur", {
+          t('wire:model.blur="'),
+          i(1, "property"),
+          t('"'),
+        }),
+        s("wire:model.debounce", {
+          t('wire:model.live.debounce.'),
+          i(1, "300"),
+          t('ms="'),
+          i(2, "property"),
           t('"'),
         }),
         s("wire:click", {
@@ -104,9 +121,65 @@ return {
           t('"'),
         }),
         s("wire:submit", {
-          t('wire:submit.prevent="'),
-          i(1, "submit"),
+          t('wire:submit="'),
+          i(1, "save"),
           t('"'),
+        }),
+        s("wire:confirm", {
+          t('wire:confirm="'),
+          i(1, "Are you sure?"),
+          t('"'),
+        }),
+        s("wire:navigate", {
+          t("wire:navigate"),
+        }),
+        s("wire:loading", {
+          t({ '<div wire:loading>', "\t" }),
+          i(1, "Loading..."),
+          t({ "", "</div>" }),
+        }),
+        s("wire:poll", {
+          t("wire:poll."),
+          i(1, "5"),
+          t("s"),
+        }),
+        s("wire:offline", {
+          t({ '<div wire:offline>', "\t" }),
+          i(1, "You are offline."),
+          t({ "", "</div>" }),
+        }),
+        s("wire:transition", {
+          t("wire:transition"),
+        }),
+        s("wire:key", {
+          t('wire:key="'),
+          i(1, "unique-key"),
+          t('"'),
+        }),
+        -- Livewire Blade tags
+        s("livewire:component", {
+          t("<livewire:"),
+          i(1, "component-name"),
+          t(" />"),
+        }),
+        s("@livewire", {
+          t("@livewire('"),
+          i(1, "component-name"),
+          t("')"),
+        }),
+        s("@persist", {
+          t("@persist('"),
+          i(1, "key"),
+          t({ "')", "\t" }),
+          i(2),
+          t({ "", "@endpersist" }),
+        }),
+        s("@teleport", {
+          t("@teleport('"),
+          i(1, "body"),
+          t({ "')", "\t" }),
+          i(2),
+          t({ "", "@endteleport" }),
         }),
         -- Blade directives
         s("@if", {

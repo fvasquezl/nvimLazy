@@ -223,7 +223,7 @@ public function {}(): HasMany
           )
         ),
 
-        -- Livewire component
+        -- Livewire 4 Components
         s(
           "livewire",
           fmt(
@@ -247,6 +247,237 @@ class {} extends Component
               i(2, "component-name"),
             }
           )
+        ),
+        s(
+          "livewire.full",
+          fmt(
+            [[
+<?php
+
+namespace App\Livewire;
+
+use Livewire\Attributes\Validate;
+use Livewire\Component;
+
+class {} extends Component
+{{
+    #[Validate('{}')]
+    public {} ${} = {};
+
+    public function mount(): void
+    {{
+        {}
+    }}
+
+    public function {}(): void
+    {{
+        $this->validate();
+        {}
+    }}
+
+    public function render()
+    {{
+        return view('livewire.{}');
+    }}
+}}
+]],
+            {
+              i(1, "ComponentName"),
+              i(2, "required"),
+              i(3, "string"),
+              i(4, "name"),
+              i(5, "''"),
+              i(6, "//"),
+              i(7, "save"),
+              i(8, "//"),
+              i(9, "component-name"),
+            }
+          )
+        ),
+        s(
+          "livewire.form",
+          fmt(
+            [[
+<?php
+
+namespace App\Livewire\Forms;
+
+use Livewire\Attributes\Validate;
+use Livewire\Form;
+
+class {} extends Form
+{{
+    #[Validate('required')]
+    public string ${} = '';
+
+    #[Validate('required')]
+    public string ${} = '';
+
+    public function store(): void
+    {{
+        $this->validate();
+        {}
+    }}
+}}
+]],
+            {
+              i(1, "ContactForm"),
+              i(2, "name"),
+              i(3, "email"),
+              i(4, "// Model::create($this->all());"),
+            }
+          )
+        ),
+        s(
+          "livewire.table",
+          fmt(
+            [[
+<?php
+
+namespace App\Livewire;
+
+use Livewire\Attributes\Url;
+use Livewire\Component;
+use Livewire\WithPagination;
+
+class {} extends Component
+{{
+    use WithPagination;
+
+    #[Url]
+    public string $search = '';
+
+    public string $sortBy = '{}';
+    public string $sortDirection = 'asc';
+
+    public function updatedSearch(): void
+    {{
+        $this->resetPage();
+    }}
+
+    public function sort(string $column): void
+    {{
+        $this->sortDirection = $this->sortBy === $column && $this->sortDirection === 'asc' ? 'desc' : 'asc';
+        $this->sortBy = $column;
+    }}
+
+    public function render()
+    {{
+        return view('livewire.{}', [
+            '{}' => {}::query()
+                ->when($this->search, fn ($q) => $q->where('{}', 'like', "%{{$this->search}}%"))
+                ->orderBy($this->sortBy, $this->sortDirection)
+                ->paginate(10),
+        ]);
+    }}
+}}
+]],
+            {
+              i(1, "UserTable"),
+              i(2, "created_at"),
+              i(3, "user-table"),
+              i(4, "users"),
+              i(5, "App\\Models\\User"),
+              i(6, "name"),
+            }
+          )
+        ),
+
+        -- Livewire 4 Attributes
+        s("lw.validate", {
+          t("#[Validate('"),
+          i(1, "required"),
+          t("')]"),
+        }),
+        s("lw.url", {
+          t("#[Url]"),
+        }),
+        s("lw.locked", {
+          t("#[Locked]"),
+        }),
+        s("lw.reactive", {
+          t("#[Reactive]"),
+        }),
+        s("lw.modelable", {
+          t("#[Modelable]"),
+        }),
+        s("lw.computed", {
+          t("#[Computed]"),
+        }),
+        s("lw.lazy", {
+          t("#[Lazy]"),
+        }),
+        s(
+          "lw.on",
+          fmt(
+            [[
+#[On('{}')]
+public function {}(): void
+{{
+    {}
+}}
+]],
+            {
+              i(1, "event-name"),
+              i(2, "handleEvent"),
+              i(3, "//"),
+            }
+          )
+        ),
+
+        -- Livewire 4 Methods
+        s(
+          "lw.dispatch",
+          fmt("$this->dispatch('{}'{});", {
+            i(1, "event-name"),
+            i(2, ""),
+          })
+        ),
+        s(
+          "lw.mount",
+          fmt(
+            [[
+public function mount({}): void
+{{
+    {}
+}}
+]],
+            {
+              i(1, ""),
+              i(2, "//"),
+            }
+          )
+        ),
+        s(
+          "lw.updated",
+          fmt(
+            [[
+public function updated{}(): void
+{{
+    {}
+}}
+]],
+            {
+              i(1, "Property"),
+              i(2, "//"),
+            }
+          )
+        ),
+        s("lw.redirect", {
+          t("$this->redirect(route('"),
+          i(1, "route.name"),
+          t("'), navigate: true);"),
+        }),
+        s("lw.reset", {
+          t("$this->reset('"),
+          i(1, "property"),
+          t("');"),
+        }),
+        s(
+          "lw.js",
+          fmt("$this->js('{}');", {
+            i(1, "alert('Hello')"),
+          })
         ),
 
         -- Factory
