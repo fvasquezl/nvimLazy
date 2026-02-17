@@ -46,6 +46,7 @@ return {
               },
               diagnostics = {
                 enable = true,
+                undefinedProperties = false, -- Carbon/Eloquent magic properties
               },
               stubs = {
                 -- Common Laravel and PHP stubs

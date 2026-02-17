@@ -11,6 +11,9 @@ return {
       keymap = {
         -- CR only confirms if an item was explicitly selected
         ["<CR>"] = { "accept", "fallback" },
+        -- Tab/S-Tab to navigate completion items
+        ["<Tab>"] = { "select_next", "snippet_forward", "fallback" },
+        ["<S-Tab>"] = { "select_prev", "snippet_backward", "fallback" },
       },
     },
   },

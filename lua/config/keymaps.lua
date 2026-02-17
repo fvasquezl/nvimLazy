@@ -154,6 +154,10 @@ map("n", "<A-k>", ":m .-2<cr>==", { desc = "Move Line Up" })
 map("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move Selection Down" })
 map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move Selection Up" })
 
+-- Duplicate line/selection down
+map("n", "<leader>j", ":t.<cr>", { desc = "Duplicate Line Down" })
+map("v", "<leader>j", ":t'><cr>gv", { desc = "Duplicate Selection Down" })
+
 -- ========================================
 -- Quick Save
 -- ========================================
