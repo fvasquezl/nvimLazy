@@ -190,6 +190,21 @@ autocmd("VimEnter", {
 })
 
 -- ========================================
+-- Auto-save on focus lost / idle
+-- ========================================
+
+local autosave_group = augroup("AutoSave", { clear = true })
+
+autocmd({ "FocusLost", "BufLeave" }, {
+  group = autosave_group,
+  callback = function()
+    if vim.bo.modified and vim.bo.buftype == "" and vim.fn.expand("%") ~= "" then
+      vim.cmd("silent! write")
+    end
+  end,
+})
+
+-- ========================================
 -- Git Commit Message
 -- ========================================
 

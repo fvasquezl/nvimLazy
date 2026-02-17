@@ -30,6 +30,13 @@ return {
     end,
   },
 
+  -- Auto-close and auto-rename HTML tags
+  {
+    "windwp/nvim-ts-autotag",
+    event = "InsertEnter",
+    opts = {},
+  },
+
   -- LSP configuration for Blade files
   {
     "neovim/nvim-lspconfig",
@@ -39,10 +46,21 @@ return {
       opts.servers.html = opts.servers.html or {}
       opts.servers.html.filetypes = { "html", "blade" }
 
-      -- Add emmet support for blade files
-      if opts.servers.emmet_ls then
-        opts.servers.emmet_ls.filetypes = vim.list_extend(opts.servers.emmet_ls.filetypes or {}, { "blade" })
-      end
+      -- Add emmet support for blade files (h1 -> <h1></h1>)
+      opts.servers.emmet_ls = {
+        filetypes = { "html", "blade", "css", "typescriptreact", "javascriptreact" },
+      }
+    end,
+  },
+
+  -- Mason: ensure emmet-ls is installed
+  {
+    "mason-org/mason.nvim",
+    opts = function(_, opts)
+      opts.ensure_installed = opts.ensure_installed or {}
+      vim.list_extend(opts.ensure_installed, {
+        "emmet-ls",
+      })
     end,
   },
 

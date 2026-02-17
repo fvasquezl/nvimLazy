@@ -60,6 +60,9 @@ opt.number = true
 -- Cursor line highlighting
 opt.cursorline = true
 
+-- Auto-save when focus is lost or buffer is left
+opt.autowriteall = true
+
 -- Scrolling context
 opt.scrolloff = 8
 opt.sidescrolloff = 8
