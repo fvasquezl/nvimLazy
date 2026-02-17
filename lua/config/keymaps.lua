@@ -66,6 +66,28 @@ map("n", "<leader>nd", ":!npm run dev<cr>", { desc = "NPM Dev" })
 map("n", "<leader>nb", ":!npm run build<cr>", { desc = "NPM Build" })
 
 -- ========================================
+-- Laravel View Navigation
+-- ========================================
+
+-- Go to Blade view file from view('...'), @extends('...'), @include('...'), etc.
+map("n", "gf", function()
+  local line = vim.api.nvim_get_current_line()
+  local view_name = line:match("[view%(route%(@extends%(@include%(@livewire%(]%s*['\"]([%w%.%-_/]+)['\"]")
+    or line:match("<livewire:([%w%.%-_/]+)")
+  if view_name then
+    -- Convert dot notation to path
+    local path = view_name:gsub("%.", "/")
+    local file = vim.fn.getcwd() .. "/resources/views/" .. path .. ".blade.php"
+    if vim.fn.filereadable(file) == 1 then
+      vim.cmd("edit " .. file)
+      return
+    end
+  end
+  -- Fallback to default gf
+  vim.cmd("normal! gF")
+end, { desc = "Go to file / Blade view" })
+
+-- ========================================
 -- PHP Development Keymaps
 -- ========================================
 
